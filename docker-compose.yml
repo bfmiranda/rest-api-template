@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  nodejs-node-0:
+    image: nodejs
+    volumes:
+      - nodejs-_data:/kalangos/nodejs/data
+    env_file: .env
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=db
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB 
+    ports:
+      - "80:8080"
+    networks:
+      - app-network
+    command: /home/node/app/node_modules/.bin/nodemon server.js
+
+volumes:
+  nodejs-_data:
+    driver: local
